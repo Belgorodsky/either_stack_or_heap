@@ -18,6 +18,8 @@ struct HeapOnly
 		return std::unique_ptr<HeapOnly>(new (std::nothrow)HeapOnly);
 	}
 
+	HeapOnly(const HeapOnly&) = delete;
+
 	int val;
 
 	private: 
@@ -38,5 +40,12 @@ int main()
 
 	auto heap_only = HeapOnly::create();
 //	HeapOnly error3;
+	if (heap_only)
+	{
+//		HeapOnly error4 = *heap_only;
+//		HeapOnly error5 = std::move(*heap_only);
+	}
+
+	return 0;
 }
 
