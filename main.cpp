@@ -8,6 +8,10 @@ struct StackOnly
 	void* operator new (std::size_t size, const std::nothrow_t& nothrow_value) noexcept = delete;
 	void* operator new (std::size_t size, void* ptr) noexcept = delete;
 
+    StackOnly() = default;
+	StackOnly(const StackOnly&) = delete;
+	StackOnly(StackOnly&&) = delete;
+
 	int val;
 };
 
@@ -35,6 +39,8 @@ int main()
 	StackOnly *ptr = static_cast<StackOnly*>(std::malloc(sizeof(StackOnly)));
 	// but still cannot call constructor
 //	auto error2 = new (ptr) StackOnly();
+//	*ptr = StackOnly();
+//	*ptr = std::move(StackOnly());
 	ptr->~StackOnly();
 	std::free(ptr);
 
